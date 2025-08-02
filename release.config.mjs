@@ -47,10 +47,7 @@ const config = {
     [
       "@semantic-release/github",
       {
-        assets: [
-          { path: "'build/libs/!(*-sources).jar'", label: "Mod file" },
-          { path: "build/libs/*-sources.jar", label: "Development sources" },
-        ],
+        assets: ["build/libs/*.jar"],
         releaseNameTemplate: "${nextRelease.version} for Minecraft <%= process.env.MINECRAFT_VERSION %>",
       },
     ],
