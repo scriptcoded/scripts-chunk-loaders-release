@@ -26,47 +26,56 @@ jobs:
 
       - run: npm install
 
-      - name: Generate release notes (Dry Run)
-        id: dryrun
+      - name: Semantic Release dry run
+        id: dry-release
         run: |
-          # Run semantic-release in dry-run mode and capture all output
-          output=$(npx semantic-release --dry-run --no-ci --branches "refs/pull/1/merge" --debug)
+          OUTPUT=$(unset GITHUB_ACTIONS && npx semantic-release --dry-run --no-ci --branches "${{ github.head_ref }}" --debug)
+          echo "Output from semantic-release:"
+          echo "$OUTPUT"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-          # Output the raw result for debugging
-          echo "Raw output from semantic-release:"
-          echo "$output"
+      # - name: Generate release notes (Dry Run)
+      #   id: dryrun
+      #   run: |
+      #     # Run semantic-release in dry-run mode and capture all output
+      #     output=$(npx semantic-release --dry-run --no-ci --branches "refs/pull/1/merge" --debug)
 
-          if [[ $? -ne 0 ]]; then
-            echo "❌ Error generating release notes."
-            echo "$output"
-            exit 1
-          fi
+      #     # Output the raw result for debugging
+      #     echo "Raw output from semantic-release:"
+      #     echo "$output"
+
+      #     if [[ $? -ne 0 ]]; then
+      #       echo "❌ Error generating release notes."
+      #       echo "$output"
+      #       exit 1
+      #     fi
           
-          # Check if a release would be created
-          if echo "$output" | grep -q "There are no relevant changes"; then
-            notes="No release will be triggered by this PR."
-          else
-            # Extract just the release notes section for a cleaner comment
-            notes=$(echo "$output" | awk '/Release notes for version/{flag=1; next} flag')
-          fi
+      #     # Check if a release would be created
+      #     if echo "$output" | grep -q "There are no relevant changes"; then
+      #       notes="No release will be triggered by this PR."
+      #     else
+      #       # Extract just the release notes section for a cleaner comment
+      #       notes=$(echo "$output" | awk '/Release notes for version/{flag=1; next} flag')
+      #     fi
           
-          # Use multiline output for the notes
-          echo "notes<<EOF" >> $GITHUB_OUTPUT
-          echo "$notes" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+      #     # Use multiline output for the notes
+      #     echo "notes<<EOF" >> $GITHUB_OUTPUT
+      #     echo "$notes" >> $GITHUB_OUTPUT
+      #     echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Post or Update PR Comment
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          # A unique header to find and update the comment later
-          header: release-preview
-          message: |
-            ### 🚀 Release Preview
-            Merging this pull request will trigger a new release.
+      # - name: Post or Update PR Comment
+      #   uses: marocchino/sticky-pull-request-comment@v2
+      #   with:
+      #     # A unique header to find and update the comment later
+      #     header: release-preview
+      #     message: |
+      #       ### 🚀 Release Preview
+      #       Merging this pull request will trigger a new release.
 
-            **Release Notes:**
-            ```md
-            ${{ steps.dryrun.outputs.notes }}
-            ```
+      #       **Release Notes:**
+      #       ```md
+      #       ${{ steps.dryrun.outputs.notes }}
+      #       ```
 
-            *After merging, the release must be triggered manually from the [Actions tab](https://github.com/${{ github.repository }}/actions/workflows/release.yml).*
+      #       *After merging, the release must be triggered manually from the [Actions tab](https://github.com/${{ github.repository }}/actions/workflows/release.yml).*
