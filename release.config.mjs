@@ -41,7 +41,7 @@ const config = {
       "@semantic-release/exec",
       {
         prepareCmd: './release/prepare.sh "${nextRelease.version}"',
-        publishCmd: `./release/publish.sh "$(cat << 'EOF'\n${nextRelease.notes}\n)"`,
+        publishCmd: "./release/publish.sh \"$(cat << 'EOF'\n${nextRelease.notes}\n)\"",
       },
     ],
     [
