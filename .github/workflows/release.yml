@@ -6,29 +6,30 @@ on:
       - main
       - 'mc/*'
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
     # This condition prevents the workflow from running on pushes that
     # only contain the [skip ci] message from semantic-release itself.
-    if: "contains(github.event.head_commit.message, '[skip ci]') == false"
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # We need the full history to analyze all commits
           fetch-depth: 0
-          # We need a token with write permissions to push the tag and commit
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "lts/*"
 
-      - name: Install dependencies
-        run: npm install -g semantic-release @semantic-release/git @semantic-release/github
+      - run: npm install
 
       - name: Release
         run: semantic-release
