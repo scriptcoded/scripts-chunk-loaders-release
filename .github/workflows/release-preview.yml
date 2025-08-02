@@ -26,6 +26,8 @@ jobs:
 
       - run: npm install
 
+      - run: git checkout -b "${{ github.head_ref }}"
+
       - name: Semantic Release dry run
         id: dry-release
         run: |
