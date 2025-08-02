@@ -35,7 +35,7 @@ jobs:
         id: dryrun
         run: |
           # Run semantic-release in dry-run mode and capture all output
-          output=$(npx semantic-release --dry-run --no-ci --branches "pull/1/merge")
+          output=$(npx semantic-release --dry-run --no-ci --branches "pull/1/merge" --debug)
 
           # Output the raw result for debugging
           echo "Raw output from semantic-release:"
