@@ -88,4 +88,5 @@ for (const branch of branches) {
 
 console.log("Generated semantic-release config:", JSON.stringify(config, null, 2));
 
-export default config;
+// export default config;
+// console.log(config)
