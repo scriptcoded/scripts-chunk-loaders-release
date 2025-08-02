@@ -29,7 +29,7 @@ jobs:
 
       - name: Echo branch
         run: |
-          git branch --show-current
+          echo "Current branch: $(git branch --show-current)"
 
       - name: Echo context
         run: |
@@ -39,7 +39,7 @@ jobs:
         id: dryrun
         run: |
           # Run semantic-release in dry-run mode and capture all output
-          output=$(npx semantic-release --dry-run --no-ci --branches "pull/1/merge" --debug)
+          output=$(npx semantic-release --dry-run --no-ci --branches '["*"]' --debug)
 
           # Output the raw result for debugging
           echo "Raw output from semantic-release:"
