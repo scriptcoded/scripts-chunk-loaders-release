@@ -40,8 +40,8 @@ const config = {
     [
       "@semantic-release/exec",
       {
-        prepareCmd: './release/prepare.sh ${nextRelease.version}',
-        publishCmd: './release/publish.sh ${nextRelease.notes}',
+        prepareCmd: './release/prepare.sh "${nextRelease.version}"',
+        publishCmd: "./release/publish.sh <<'EOF'\n${nextRelease.notes}\nEOF",
       },
     ],
     [
