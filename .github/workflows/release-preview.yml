@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: "lts/*"
 
-      - run: npm install
+      - run: npm ci
 
       - name: Checkout PR branch (required for semantic-release)
         run: git checkout "origin/${{ github.head_ref }}"
