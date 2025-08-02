@@ -77,7 +77,6 @@ modrinth {
 	uploadFile = remapJar
 	gameVersions = [project.minecraft_version]
 	dependencies {
-		required.project "fabric-loader"
 		required.project "fabric-api"
 	}
 	changelog = System.getenv("MODRINTH_CHANGELOG")
