@@ -27,15 +27,11 @@ jobs:
 
       - run: npm install
 
-      - name: Echo context
-        run: |
-          echo "Context: ${{ toJson(github) }}"
-
       - name: Generate release notes (Dry Run)
         id: dryrun
         run: |
           # Run semantic-release in dry-run mode and capture all output
-          output=$(npx semantic-release --dry-run --no-ci --branches ${{ github.ref_name }})
+          output=$(npx semantic-release --dry-run --no-ci --branches ${{ github.head_ref }})
 
           # Output the raw result for debugging
           echo "Raw output from semantic-release:"
