@@ -2,7 +2,7 @@ name: Promote Latest Release
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   promote-release:
