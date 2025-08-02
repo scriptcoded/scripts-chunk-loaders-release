@@ -32,6 +32,8 @@ jobs:
 
       - name: Generate release notes (Dry Run)
         id: dryrun
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Run semantic-release in dry-run mode and capture all output
           # Unset GITHUB_ACTIONS to avoid issues with semantic-release refusing to run in CI
