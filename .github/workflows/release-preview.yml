@@ -68,12 +68,11 @@ jobs:
           echo "body<<EOF" >> $GITHUB_OUTPUT
 
           if [[ "${{ steps.dryrun.outputs.notes }}" == "NO_RELEASE" ]]; then
-            echo "No release will be triggered by this PR."
-            echo "body=No release will be created." >> $GITHUB_OUTPUT
+            echo "No release will be created when this PR is merged." >> $GITHUB_OUTPUT
           else
-            echo "body=Release notes for this PR:\n" >> $GITHUB_OUTPUT
+            echo "This PR will trigger a new release when merged." >> $GITHUB_OUTPUT
             echo -e "<details>\n" >> $GITHUB_OUTPUT
-            echo -e "<summary>Release Notes</summary>\n" >> $GITHUB_OUTPUT
+            echo -e "<summary>Release notes</summary>\n" >> $GITHUB_OUTPUT
             echo -e "${{ steps.dryrun.outputs.notes }}\n" >> $GITHUB_OUTPUT
             echo -e "</details>\n" >> $GITHUB_OUTPUT
           fi
