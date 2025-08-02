@@ -39,6 +39,7 @@ jobs:
   # Because semantic-release also marks maintenance releases as latest,
   # we need to ensure that the highest semver release is marked as latest.
   promote-release:
+    needs: release
     name: Mark highest semver as latest
     runs-on: ubuntu-latest
 
