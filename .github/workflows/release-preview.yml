@@ -32,7 +32,13 @@ jobs:
         id: dryrun
         run: |
           # Run semantic-release in dry-run mode and capture all output
-          output=$(semantic-release --dry-run)
+          output=$(npx semantic-release --dry-run --branches ${{ github.ref_name }})
+
+          if [[ $? -ne 0 ]]; then
+            echo "❌ Error generating release notes."
+            echo "$output"
+            exit 1
+          fi
           
           # Check if a release would be created
           if echo "$output" | grep -q "There are no relevant changes"; then
