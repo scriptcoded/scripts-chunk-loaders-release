@@ -34,6 +34,7 @@ jobs:
       - name: Release
         run: npx semantic-release
         env:
+          DUMMY_ENV_VAR: "Test Value"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Because semantic-release also marks maintenance releases as latest,
