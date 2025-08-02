@@ -1,0 +1,19 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "io.nihlen.scriptschunkloaders.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+	],
+	"client": [
+		"DispenserBlockMixin",
+		"AbstractMinecartEntityMixin"
+	],
+	"server": [
+		"DispenserBlockMixin",
+		"AbstractMinecartEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

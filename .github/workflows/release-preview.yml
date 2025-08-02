@@ -1,0 +1,61 @@
+name: Release Preview
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'mc/*'
+
+jobs:
+  preview:
+    name: Preview Release Notes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # We need the full history to analyze all commits
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Install semantic-release
+        run: npm install -g semantic-release @semantic-release/git @semantic-release/github
+
+      - name: Generate release notes (Dry Run)
+        id: dryrun
+        run: |
+          # Run semantic-release in dry-run mode and capture all output
+          output=$(semantic-release --dry-run)
+          
+          # Check if a release would be created
+          if echo "$output" | grep -q "There are no relevant changes"; then
+            notes="No release will be triggered by this PR."
+          else
+            # Extract just the release notes section for a cleaner comment
+            notes=$(echo "$output" | awk '/Release notes for version/{flag=1; next} flag')
+          fi
+          
+          # Use multiline output for the notes
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$notes" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Post or Update PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          # A unique header to find and update the comment later
+          header: release-preview
+          message: |
+            ### 🚀 Release Preview
+            Merging this pull request will trigger a new release.
+
+            **Release Notes:**
+            ```md
+            ${{ steps.dryrun.outputs.notes }}
+            ```
+
+            *After merging, the release must be triggered manually from the [Actions tab](https://github.com/${{ github.repository }}/actions/workflows/release.yml).*
