@@ -72,9 +72,10 @@ jobs:
             echo "body=No release will be created." >> $GITHUB_OUTPUT
           else
             echo "body=Release notes for this PR:\n" >> $GITHUB_OUTPUT
-            echo -e "---\n" >> $GITHUB_OUTPUT
+            echo -e "<details>\n" >> $GITHUB_OUTPUT
+            echo -e "<summary>Release Notes</summary>\n" >> $GITHUB_OUTPUT
             echo -e "${{ steps.dryrun.outputs.notes }}\n" >> $GITHUB_OUTPUT
-            echo -e "---\n" >> $GITHUB_OUTPUT
+            echo -e "</details>\n" >> $GITHUB_OUTPUT
           fi
 
           echo "EOF" >> $GITHUB_OUTPUT
