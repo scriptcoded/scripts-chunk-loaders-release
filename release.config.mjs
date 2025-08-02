@@ -43,7 +43,7 @@ const config = {
         prepareCmd: './release/prepare.sh ${nextRelease.version}',
         publishCmd: './release/publish.sh ${nextRelease.notes}',
       },
-    ]
+    ],
     [
       "@semantic-release/github",
       {
