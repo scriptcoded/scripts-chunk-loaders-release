@@ -33,6 +33,10 @@ jobs:
           # Run semantic-release in dry-run mode and capture all output
           output=$(npx semantic-release --dry-run --branches ${{ github.ref_name }})
 
+          # Output the raw result for debugging
+          echo "Raw output from semantic-release:"
+          echo "$output"
+
           if [[ $? -ne 0 ]]; then
             echo "❌ Error generating release notes."
             echo "$output"
