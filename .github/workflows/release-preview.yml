@@ -38,6 +38,9 @@ jobs:
             # Extract just the release notes section for a cleaner comment
             notes=$(echo "$output" | awk '/Release notes for version/{flag=1; next} flag')
           fi
+
+          echo "Output:"
+          echo "$output"
           
           # Use multiline output for the notes
           echo "notes<<EOF" >> $GITHUB_OUTPUT
