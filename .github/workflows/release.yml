@@ -23,6 +23,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      
+      - name: Get Minecraft version
+        id: mcVersion
+        run: |
+          PROPERTIES_FILE="gradle.properties"
+          MC_VERSION_REGEX='minecraft_version\s*=\s*(.+)'
+
+          MC_VERSION=$(grep -oP "$MC_VERSION_REGEX" "$PROPERTIES_FILE" | cut -d'=' -f2 | tr -d '[:space:]' || true)
+          echo "version=$MC_VERSION" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,7 +43,7 @@ jobs:
       - name: Release
         run: npx semantic-release
         env:
-          DUMMY_ENV_VAR: "Test Value"
+          MINECRAFT_VERSION: "${{ steps.mcVersion.outputs.version }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # Because semantic-release also marks maintenance releases as latest,

@@ -44,7 +44,7 @@ const config = {
           { path: "'build/libs/!(*-sources).jar'", label: "Mod file" },
           { path: "build/libs/*-sources.jar", label: "Development sources" },
         ],
-        releaseNameTemplate: "${nextRelease.version} - <%= process.env.DUMMY_ENV_VAR %>",
+        releaseNameTemplate: "${nextRelease.version} - <%= process.env.MINECRAFT_VERSION %>",
       },
     ],
   ],
