@@ -69,8 +69,10 @@ jobs:
             echo "No release will be triggered by this PR."
             echo "body=No release will be created." >> $GITHUB_OUTPUT
           else
-            echo "body=Release notes for this PR:" >> $GITHUB_OUTPUT
-            echo -e "\n\`\`\`md\n${{ steps.dryrun.outputs.notes }}\n\`\`\`" >> $GITHUB_OUTPUT
+            echo "body=Release notes for this PR:\n" >> $GITHUB_OUTPUT
+            echo -e "---\n" >> $GITHUB_OUTPUT
+            echo -e "${{ steps.dryrun.outputs.notes }}\n" >> $GITHUB_OUTPUT
+            echo -e "---\n" >> $GITHUB_OUTPUT
           fi
 
       - name: Post or Update PR Comment
