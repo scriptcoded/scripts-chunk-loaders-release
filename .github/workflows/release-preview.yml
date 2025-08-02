@@ -6,6 +6,9 @@ on:
       - main
       - 'mc/*'
 
+permissions:
+  pull-requests: write
+
 jobs:
   preview:
     name: Preview Release Notes
