@@ -38,6 +38,13 @@ const config = {
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
     [
+      "@semantic-release/exec",
+      {
+        prepareCmd: './release/prepare.sh ${nextRelease.version}',
+        publishCmd: './release/publish.sh ${nextRelease.notes}',
+      },
+    ]
+    [
       "@semantic-release/github",
       {
         assets: [
