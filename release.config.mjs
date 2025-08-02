@@ -47,16 +47,10 @@ const config = {
       },
     ],
   ],
-  branches: [],
+  branches: [{ name: "main" }],
 };
 
 const branches = execSync("git branch -r", { encoding: "utf-8" }).split("\n");
-
-const mainVersion = getVersionFromBranch("origin/main");
-config.branches.push({
-  name: "main",
-  range: makeVersionRange(mainVersion),
-});
 
 for (const branch of branches) {
   const branchName = branch.trim();
