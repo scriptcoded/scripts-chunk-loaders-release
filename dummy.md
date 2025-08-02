@@ -1,3 +1,3 @@
 # File for dummy changes while testing
 
-1. First dummy change
+1. Upgrade to Minecraft 1.20.1

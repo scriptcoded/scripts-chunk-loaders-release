@@ -5,7 +5,7 @@ import { execSync } from "child_process";
 const VERSION_FILE_PATH = "gradle.properties";
 // The regex to extract the version from the file.
 // It should capture the MAJOR, MINOR, and PATCH parts.
-const VERSION_REGEX = /version\s*=\s*(\d+)\.(\d+)\.(\d+)/;
+const VERSION_REGEX = /mod_version\s*=\s*(\d+)\.(\d+)\.(\d+)/;
 // The prefix for your maintenance branches.
 const MAINTENANCE_BRANCH_PREFIX = "origin/mc/";
 // --- End Configuration ---
