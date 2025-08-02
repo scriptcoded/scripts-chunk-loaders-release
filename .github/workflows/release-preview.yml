@@ -54,7 +54,7 @@ jobs:
             notes="No release will be triggered by this PR."
           else
             # Extract just the release notes section for a cleaner comment
-            notes=$(echo "$output" | awk '/Release notes for version/{flag=1; next} flag')
+            notes=$(echo "$output" | awk '/Release note for version/{flag=1; next} flag')
           fi
           
           # Use multiline output for the notes
