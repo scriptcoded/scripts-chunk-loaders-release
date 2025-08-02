@@ -3,7 +3,7 @@ name: Verify Maintenance Branch
 on:
   pull_request:
     types: [opened, synchronize, reopened, edited]
-    branches: [main]
+    branches: [main, 'mc/*']
 
 jobs:
   verify:
