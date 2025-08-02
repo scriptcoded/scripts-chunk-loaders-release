@@ -2,7 +2,7 @@ name: Verify Maintenance Branch
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened, edited]
     branches: [main]
 
 jobs:
@@ -52,6 +52,8 @@ jobs:
               echo "  git pull"
               echo "  git checkout -b $EXPECTED_BRANCH"
               echo "  git push -u origin $EXPECTED_BRANCH"
+              echo "  git checkout -"
+              echo "After creating the branch, re-run this workflow."
               exit 1
             fi
           else
